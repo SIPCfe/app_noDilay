@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/mui.css" rel="stylesheet"/>
+    <style>
+    	html {
+    		background-color: #dedee1;	
+    	}
+    	body {
+    		background-color: #dedee1;
+    		padding-left: 8px;
+   	 		padding-right: 8px;
+    	}
+    	.mui-content {
+    		background-color: #dedee1;
+    	}
+    	.clearfix:after {
+    		content: "";
+    		display: table;
+    		clear: both;
+    	}
+    	#OA_task_1 {
+    		background-color: #dedee1;
+    		margin-top: 10px;
+    		position: relative;
+    	}
+    	.taskItem {
+    		width: 100%;
+    		padding: 0px;
+    		margin-bottom: 10px;
+    		height: 85px;
+    		overflow: hidden;
+    		position: absolute;
+    	}
+    	.tgy-li-container {
+    		padding: 5px 10px;
+    		height: 85px;
+    		overflow: hidden;
+    	}
+    	.tgy-li-header {
+    		
+    	}
+    	.tgy-li-button {
+    		width: 10px;
+    		height: 10px;
+    		border-radius: 50%;
+    		background-color: #ff0000;
+    		display: inline-block;
+    		vertical-align: 2px;
+    	}
+    	.tgy-li-time {
+    		display: inline-block;
+    		margin-left: 7px;
+    		font-size: 15px;
+    		color: #8f8f94;
+    		vertical-align: bottom;
+    	}
+    	.tgy-li-main {
+    		padding-left: 20px;
+    		padding-top: 5px;
+    		padding-right: 10px;
+    	}
+    	.tgy-li-left {
+    		float: left;
+    	}
+    	.tgy-li-right {
+    		float: right;
+    	}
+    	.tgy-li-left>p {
+    		margin-bottom: 2px;
+    	}
+    	.tgy-li-title {
+    		font-size: 20px;
+    		color: #393952;
+    	}
+    	.tgy-li-with {
+    		font-size: 12px;
+    	}
+    	.tgy-li-with>span {
+    		color: #3DB9B3;
+    	}
+    	svg {
+    		width: 40px;
+    		height: 40px;
+    		margin-top: -5px;
+    	}
+    	svg.green {
+    		fill: #29d631;
+    	}
+    	svg.blue {
+    		fill: #418cf7;
+    	}
+    	svg.brown {
+    		fill: #aa6f11;
+    	}
+    	.mui-table-view:after {
+    		content: "";
+    		height: 0px;
+    	}
+    	.mui-table-view-cell:after  {
+    		content: "";
+    		height: 0px;
+    	}
+    </style>
+</head>
+<body>
+	<ul id="OA_task_1" class="mui-table-view">
+		<li class="mui-table-view-cell taskItem">
+			<div class="mui-slider-right mui-disabled">
+				<a class="mui-btn mui-btn-red">删除</a>
+			</div>
+			<div class="mui-slider-handle tgy-li-container">
+				<header class="tgy-li-header">
+					<span class="tgy-li-button"></span>
+					<span class="tgy-li-time">06:00  AM</span>
+				</header>
+				<div class="tgy-li-main clearfix">
+					<div class="tgy-li-left">
+						<p class="tgy-li-title">今天是个好日子</p>
+						<p class="tgy-li-with">
+							协作人员: <span>CaelumTian</span>
+						</p>
+					</div>
+					<div class="tgy-li-right">
+						<svg class="green">
+							<use xlink:href="../svg/svg-symbols.svg#code optimization"></use>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</li>
+		<li class="mui-table-view-cell taskItem">
+			<div class="mui-slider-right mui-disabled">
+				<a class="mui-btn mui-btn-red">删除</a>
+			</div>
+			<div class="mui-slider-handle tgy-li-container">
+				<header class="tgy-li-header">
+					<span class="tgy-li-button"></span>
+					<span class="tgy-li-time">09:30  AM</span>
+				</header>
+				<div class="tgy-li-main clearfix">
+					<div class="tgy-li-left">
+						<p class="tgy-li-title">明天设计师交稿</p>
+						<p class="tgy-li-with">
+							协作人员: <span>CaelumTian</span>
+						</p>
+					</div>
+					<div class="tgy-li-right">
+						<svg class="blue">
+							<use xlink:href="../svg/svg-symbols.svg#website design"></use>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>			
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.init();
+		(function() {
+			
+		})()
+	</script>
+</body>
+</html>
