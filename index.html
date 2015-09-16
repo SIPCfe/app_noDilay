@@ -46,13 +46,13 @@
 					bounce: 'vertical'
 				}
 			}]
-		});
-		var aniShow = {};	
+		});	
 		//创建子页面，首个选项卡页面显示，其它均隐藏；
 		mui.plusReady(function() {
 			plus.screen.lockOrientation("portrait-primary");  //仅支持竖屏
 			var showGuide = plus.storage.getItem("lauchFlag");  //本地数据存储是否访问过
 			main = plus.webview.currentWebview();
+			main.addEventListener('maskClick', closeMenu);
 			if(showGuide){
 				//有值，说明已经显示过了，无需显示；
 				//关闭splash页面；
@@ -75,9 +75,12 @@
 					_initChild();
 				},200);
 			}
+			/*
+			 * 准备左侧导航
+			 */
 			setTimeout(function() {
 				menu = mui.preload({
-					id: 'index-menu',
+					id: 'index_menu',
 					url: 'index_menu.html',
 					styles: {
 						left: 0,
@@ -110,7 +113,7 @@
 							mask: 'rgba(0,0,0,0.4)',
 							left: '80%',
 							transition: {
-								duration: 150
+								duration: 300
 							}
 						});
 						mui.later(function() {
@@ -152,14 +155,30 @@
 			 //点击左上角侧滑图标，打开侧滑菜单；
 			document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
 				if (showMenu) {
+					mui.fire(menu, "closeAnimate");
 					closeMenu();
 				} else {
+					mui.fire(menu, "openRotate");
 					openMenu();
 				}
 			});
-			window.addEventListener("swiperight", openMenu);
+			mui.menu = function() {
+					if (showMenu) {
+						closeMenu();
+					} else {
+						openMenu();
+					}
+				}
+				//处理右上角关于图标的点击事件；
+			window.addEventListener("swiperight", function() {
+				openMenu();
+				mui.fire(menu, "openRotate");
+			});
 			 //主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
-			window.addEventListener("swipeleft", closeMenu);
+			window.addEventListener("swipeleft", function() {
+				closeMenu();
+				mui.fire(menu, "closeAnimate");
+			});
 			 //侧滑菜单触发关闭菜单命令
 			window.addEventListener("menu:close", closeMenu);
 			window.addEventListener("menu:open", openMenu);
