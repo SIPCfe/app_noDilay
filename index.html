@@ -4,13 +4,165 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
-    <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
+    <script src="js/mui.min.js"></script>
+    <style>
+    	html {
+    		background-color: #dedee1;	
+    	}
+    	body {
+    		background-color: #dedee1;
+    	}
+    	.mui-content {
+    		background-color: #dedee1;
+    	}
+		header.tgy-header {
+			background-color: #f9f9f9;
+		}
+    </style>
 </head>
 <body>
-	
+	<header class="mui-bar mui-bar-nav tgy-header">
+		<div class="blur"></div>
+		<a class="mui-icon mui-icon-bars mui-pull-left"></a>
+		<h1 class="mui-title">标题</h1>
+	</header>
+	<script>
+		var menu = null,   //菜单webview
+			main = null;   //保存当前页面webview
+		var showMenu = false;
+		mui.init({
+			swipeBack: false,
+			statusBarBackground: ' #f9f9f9',
+			gestureConfig: {
+				doubletap: true
+			},
+			subpages: [{
+				id: 'childPages/itemList.html',
+				url: 'childPages/itemList.html',
+				styles: {
+					top: '45px',
+					bottom : '0px',
+					bounce: 'vertical'
+				}
+			}]
+		});
+		var aniShow = {};	
+		//创建子页面，首个选项卡页面显示，其它均隐藏；
+		mui.plusReady(function() {
+			plus.screen.lockOrientation("portrait-primary");  //仅支持竖屏
+			var showGuide = plus.storage.getItem("lauchFlag");  //本地数据存储是否访问过
+			main = plus.webview.currentWebview();
+			if(showGuide){
+				//有值，说明已经显示过了，无需显示；
+				//关闭splash页面；
+				plus.navigator.closeSplashscreen();
+				plus.navigator.setFullscreen(false);
+			}else{
+				//显示启动导航
+				mui.openWindow({
+					id:'guide',
+					url:'guide/guide.html',
+					show:{
+						aniShow:'none'
+					},
+					waiting:{
+						autoShow:false
+					}
+				});
+				//延迟的原因：优先打开启动导航页面，避免资源争夺
+				setTimeout(function () {
+					_initChild();
+				},200);
+			}
+			setTimeout(function() {
+				menu = mui.preload({
+					id: 'index-menu',
+					url: 'index-menu.html',
+					styles: {
+						left: 0,
+						width: '70%',
+						zindex: -1
+					},
+					show: {
+						aniShow: 'none'
+					}
+				});
+			}, 200)
+		});
+			var isInTransition = false;
+			/**
+			 * 显示侧滑菜单
+			 */
+			function openMenu() {
+				if (isInTransition) {
+					return;
+				}
+				if (!showMenu) {
+					//侧滑菜单处于隐藏状态，则立即显示出来；
+					isInTransition = true;
+					menu.setStyle({
+						mask: 'rgba(0,0,0,0)'
+					}); //menu设置透明遮罩防止点击
+					menu.show('none', 0, function() {
+						//主窗体开始侧滑并显示遮罩
+						main.setStyle({
+							mask: 'rgba(0,0,0,0.4)',
+							left: '70%',
+							transition: {
+								duration: 150
+							}
+						});
+						mui.later(function() {
+							isInTransition = false;
+							menu.setStyle({
+								mask: "none"
+							}); //移除menu的mask
+						}, 160);
+						showMenu = true;
+					});
+				}
+			};
+			/**
+			 * 关闭菜单
+			 */
+			function closeMenu() {
+				if (isInTransition) {
+					return;
+				}
+				if (showMenu) {
+					//关闭遮罩；
+					//主窗体开始侧滑；
+					isInTransition = true;
+					main.setStyle({
+						mask: 'none',
+						left: '0',
+						transition: {
+							duration: 200
+						}
+					});
+					showMenu = false;
+					//等动画结束后，隐藏菜单webview，节省资源；
+					mui.later(function() {
+						isInTransition = false;
+						menu.hide();
+					}, 300);
+				}
+			};
+			 //点击左上角侧滑图标，打开侧滑菜单；
+			document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+				if (showMenu) {
+					closeMenu();
+				} else {
+					openMenu();
+				}
+			});
+			window.addEventListener("swiperight", openMenu);
+			 //主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
+			window.addEventListener("swipeleft", closeMenu);
+			 //侧滑菜单触发关闭菜单命令
+			window.addEventListener("menu:close", closeMenu);
+			window.addEventListener("menu:open", openMenu);
+	</script>
 </body>
 </html>

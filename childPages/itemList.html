@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			html {
+				font-size: 62.5%;   /*10px*/
+	    		background-color: #dedee1;	
+	    	}
+	    	body {
+	    		font-size: 1.6rem; /* =16px */
+	    		background-color: #dedee1;
+	    	}
+	    	.mui-content {
+	    		background-color: #dedee1;
+	    	}
+	    	.mui-scroll {
+			    width: 98%;
+    			left: 1%
+			}
+			.mui-table-view-cell>.mui-slider-right {
+    			right: -1px;
+    		}
+    		.mui-table-view:before {
+			    content: '';
+			    height: 0px;
+			}
+	    	.clearfix:after {
+	    		content: "";
+	    		display: table;
+	    		clear: both;
+	    	}
+	    	#OA_task_1 {
+	    		background-color: #dedee1;
+	    		margin-top: 10px;
+	    		position: relative;
+	       	}
+	    	.taskItem {
+	    		width: 100%;
+	    		padding: 0px;
+	    		margin-bottom: 10px;
+	    		height: 85px;
+	    		overflow: hidden;
+	    		position: absolute;
+	    	}
+	    	.tgy-li-container {
+	    		padding: 0.5rem 1rem;
+	    		height: 85px;
+	    		overflow: hidden;
+	    	}
+	    	.tgy-li-header {
+	    		
+	    	}
+	    	.tgy-li-button {
+	    		width: 1rem;
+	    		height: 1rem;
+	    		border-radius: 50%;
+	    		background-color: #ff0000;
+	    		display: inline-block;
+	    		vertical-align: 0.2rem;
+	    	}
+	    	.tgy-li-time {
+	    		display: inline-block;
+	    		margin-left: 0.7rem;
+	    		font-size: 1.5rem;
+	    		color: #8f8f94;
+	    		vertical-align: bottom;
+	    	}
+	    	.tgy-li-main {
+	    		padding-left: 2rem;
+	    		padding-top: 0.5rem;
+	    		padding-right: 1rem;
+	    	}
+	    	.tgy-li-left {
+	    		float: left;
+	    	}
+	    	.tgy-li-right {
+	    		float: right;
+	    	}
+	    	.tgy-li-left>p {
+	    		margin-bottom: 0.2rem;
+	    	}
+	    	.tgy-li-title {
+	    		font-size: 2rem;
+	    		color: #393952;
+	    	}
+	    	.tgy-li-with {
+	    		font-size: 1.2rem;
+	    	}
+	    	.tgy-li-with>span {
+	    		color: #3DB9B3;
+	    	}
+	    	svg {
+	    		width: 4rem;
+	    		height: 4rem;
+	    		margin-top: -0.5rem;
+	    	}
+	    	svg.green {
+	    		fill: #29d631;
+	    	}
+	    	svg.blue {
+	    		fill: #418cf7;
+	    	}
+	    	svg.brown {
+	    		fill: #aa6f11;
+	    	}
+	    	.insertNode {
+				opacity:0;
+				position: absolute;
+				-webkit-transform:scale(0.3);
+				transform:scale(0.3);
+				-webkit-transition-duration: 500ms;
+				transition-duration: 500ms;
+				-webkit-transition-timing-function: cubic-bezier(.26,1.11,.72,.94);
+				transition-timing-function: cubic-bezier(.26,1.11,.72,.94);
+			}
+			.tgy-footer {
+				box-shadow: 0 0 2px rgba(0,0,0,.5);
+				text-align: center;
+				background-color: rgba(247, 247, 247, 0.9);
+				position: fixed;
+				bottom: 0px;
+				width: 100%;
+	    		height: 60px;
+	    		padding: 0;
+	    		z-index: 10;
+	    		right: 0;
+	    		left: 0;
+			}
+			.tgy-addButton {
+				display: inline-block;
+				width: 4.2rem;
+    			height: 4.2rem;
+    			margin-top: 0.8rem;
+				border-radius: 50%;
+				background-color: #e5413b;
+			}
+			.tgy-addButton>span {
+				font-size: 4.2rem;
+	    		color: #fff;
+	    		font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 底部导航 -->
+		<footer class="tgy-footer">
+			<a class="tgy-addButton" id="addItem">
+				<span class="mui-icon mui-icon-plusempty"></span>	
+			</a>
+		</footer>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul id="OA_task_1" class="mui-table-view clearfix">
+					<li class="mui-table-view-cell taskItem">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">删除</a>
+						</div>
+						<div class="mui-slider-handle tgy-li-container">
+							<header class="tgy-li-header">
+								<span class="tgy-li-button"></span>
+								<span class="tgy-li-time">06:00  AM</span>
+							</header>
+							<div class="tgy-li-main clearfix">
+								<div class="tgy-li-left">
+									<p class="tgy-li-title">今天是个好日子</p>
+									<p class="tgy-li-with">
+										协作人员: <span>CaelumTian</span>
+									</p>
+								</div>
+								<div class="tgy-li-right">
+									<svg class="green">
+										<use xlink:href="../svg/svg-symbols.svg#code optimization"></use>
+									</svg>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>		
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/zepto.min.js"></script>
+		<script>
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						contentrefresh: '正在加载...',
+						callback: pulldownRefresh
+					}
+				}
+			});
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					var table = document.body.querySelector('.mui-table-view');
+					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+					for (var i = cells.length, len = i + 3; i < len; i++) {
+						var li = document.createElement('li');
+						li.className = 'mui-table-view-cell';
+						li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+						//下拉刷新，新纪录插到最前面；
+						//table.insertBefore(li, table.firstChild);
+					}
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 100);
+			}
+			if (mui.os.plus) {
+				mui.plusReady(function() {
+					setTimeout(function() {
+						mui('#pullrefresh').pullRefresh().pulldownLoading();
+					}, 1000);
+
+				});
+			} else {
+				mui.ready(function() {
+					mui('#pullrefresh').pullRefresh().pulldownLoading();
+				});
+			}
+			/*
+			 * 动画效果测试 
+			 * */
+			var $taskContainer = $("#OA_task_1"),
+				taskesAni = $(".taskItem").toArray(),
+				taskesNor = [],
+				ele_height = 85,     //元素高度
+				marginValue = 10,     //元素外边距
+				checkNodeNum = 7;     //屏幕最大的显示内容
+			if(taskesAni.length > checkNodeNum) {
+				taskesNor = taskesAni.splice(checkNodeNum);
+			}
+			function _init() {
+				$(".taskItem").each(function(index, item) {
+					$(item).css({
+						"transform " : "translate3d(0," + (index * ele_height + index * 10) + "px,0)",
+						"-webkit-transform " : "translate3d(0," + (index * ele_height + index * 10) + "px,0)"
+					})
+				})
+				bugHeight();
+			}
+			/*
+			 * 任务添加函数
+			 */
+			function pullDown() {
+				var delayIndex = 0;
+				for(var i = taskesAni.length - 1; i >= 0; i--) {
+					var $this = $(taskesAni[i]);
+					$this.css({
+						"-webkit-transition-delay" : delayIndex + "ms",
+						"transition-delay" : delayIndex + "ms",
+						"-webkit-transition-duration" : "400ms",
+						"transition-duration" : "400ms",
+						"-webkit-transform" : "translate3d(0," + (i * ele_height + i * 10 + ele_height + marginValue ) + "px,0)",
+						"transform" : "translate3d(0," + (i * ele_height + i * 10 + ele_height + marginValue ) + "px,0)",
+						"-webkit-transition-timing-function" : "cubic-bezier(.26,1.11,.72,.94)",
+						"transition-timing-function" : "cubic-bezier(.26,1.11,.72,.94)"
+					})
+					delayIndex += 100;
+				}
+				/*添加节点*/
+				var $newLi = $('<li class="mui-table-view-cell taskItem insertNode"><div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div><div class="mui-slider-handle tgy-li-container"><header class="tgy-li-header"><span class="tgy-li-button"></span><span class="tgy-li-time">09:30  AM</span></header><div class="tgy-li-main clearfix"><div class="tgy-li-left"><p class="tgy-li-title">明天设计师交稿</p><p class="tgy-li-with">协作人员: <span>CaelumTian</span></p></div><div class="tgy-li-right"><svg class="blue"><use xlink:href="../svg/svg-symbols.svg#website design"></use></svg></div></div></div></li>');
+				/**/
+				$taskContainer.prepend($newLi);
+				setTimeout(function() {
+					$newLi.css({
+						"-webkit-transform" : "scale(1) translate3d(0,0,0)",
+						"transform" : "scale(1) translate3d(0,0,0)",
+						"-webkit-transition-delay" : delayIndex + "ms",
+						"transition-delay" : delayIndex + "ms",
+						"opacity" : 1
+					})
+				}, 20)
+				taskesAni.unshift($newLi[0]);  //入队列
+				if(taskesAni.length > checkNodeNum) {
+					var ele = taskesAni.pop();
+					taskesNor.unshift(ele);
+					var $taskes = $(".taskItem");
+					$.each(taskesNor, function(index, item) {
+						var number = index + checkNodeNum;
+						$(item).css({
+							"transform " : "translate3d(0," + (number * ele_height + number * 10) + "px,0)",
+							"-webkit-transform " : "translate3d(0," + (number * ele_height + number * 10) + "px,0)",
+							"transition" : "none"
+						})
+					})
+				}
+				$newLi.one("transitionend", function() {
+					$(this).removeClass("insertNode");
+				})
+			}
+			/*
+			 * 修复ul高度问题
+			 */
+			function bugHeight() {
+				var bodyHeight = (parseInt($(".taskItem").length) + 1 ) * (ele_height + marginValue) + "px";
+				$taskContainer.css({
+					"height" :　bodyHeight
+				});
+			}
+			_init();
+			$("#addItem").on("click", function(event) {
+				console.log(123);
+				event.preventDefault();
+				pullDown();
+				bugHeight();
+			})
+		</script>
+	</body>
+
+</html>
