@@ -82,6 +82,14 @@
 				background-color: #000;
 				opacity: 0.7;
 				height: 7rem;
+				transform: translate3d(0,100%,0);
+				-webkit-transform: translate3d(0,100%,0);
+			    transition: all 400ms;
+			    -webkit-transition: all 400ms;
+			}
+			.wly_footerActive{
+				-webkit-transform: translate3d(0,0,0);
+				transform: translate3d(0,0,0);
 			}
 			.wly_top_font{
 				color: #999999;
@@ -95,12 +103,18 @@
 				border-radius: 3rem;
 				background-color: #000;
 				position: absolute;
-				bottom: 0.5rem;
+				top: -4rem;
 				left: 2rem;
 				text-align: center;
 				padding-top: 0.5rem;
 				color: #fff;
 				opacity: 0.5;
+			}
+			.wly_installActive{
+				transition: all 400ms;
+			    -webkit-transition: all 400ms;
+				transform: rotate(45deg);
+				-webkit-transform: rotate(45deg)
 			}
 		</style>
 	</head>
@@ -203,8 +217,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="wly_install am-icon-server"></div>
+	
 	<footer class="wly_footer">
+		<div class="wly_install am-icon-server"></div>
 		<div class="am-g">
 			<div class="am-u-sm-12">
 				<ul class="am-nav am-nav-pills am-nav-justify wly_font">
@@ -230,9 +245,18 @@
 		$(this).removeClass('am-icon-envelope');
 		$(this).addClass('am-icon-envelope-o');
 	});
+	var status = true;
 	$(".wly_install").click(function(){
-		$(this).animate({bottom:'5rem'});
-		$(".wly_footer").slideToggle("slow");
+		if(status == "true"){
+			$(".wly_footer").addClass('wly_footerActive');
+			$(".wly_install").addClass('wly_installActive');
+			status = false;
+		}else{
+			$(".wly_footer").removeClass('wly_footerActive');
+			$(".wly_install").removeClass('wly_installActive');
+			status = true;
+		}
+		
 	});
 
 	</script>
