@@ -211,31 +211,33 @@
 			$img3 = $(".img3"),
 			$info = $("#info");
 		
-			$leida.css({
-				"-webkit-transform" : "translate3d(-50%, -50%, 0) scale(0.8)"
-			})
-		
-			$leida.css({
-				"-webkit-transform" : "translate3d(-50%, -50%, 0) scale(1)"
-			})
-			var leiImg = $leida.find("img")[0];
-			leiImg.src = "../../images/leidaActive.png";
-			$leida.addClass("l-rotate");
-			$halo1.addClass("runHalo1");
-			$halo2.addClass("runHalo2");
-			$halo3.addClass("runHalo3");
-			$info.css({
-				"display" : "block"
-			})
-			$img1.addClass('a-fadeIn').css({
-				"-webkit-animation-delay" : "3000ms"
-			});
-			$img2.addClass('a-fadeIn').css({
-				"-webkit-animation-delay" : "4000ms"
-			});
-			$img3.addClass('a-fadeIn').css({
-				"-webkit-animation-delay" : "6000ms"
-			});
+			setTimeout(function() {
+				$leida.css({
+					"-webkit-transform" : "translate3d(-50%, -50%, 0) scale(0.8)"
+				})
+			
+				$leida.css({
+					"-webkit-transform" : "translate3d(-50%, -50%, 0) scale(1)"
+				})
+				var leiImg = $leida.find("img")[0];
+				leiImg.src = "../../images/leidaActive.png";
+				$leida.addClass("l-rotate");
+				$halo1.addClass("runHalo1");
+				$halo2.addClass("runHalo2");
+				$halo3.addClass("runHalo3");
+				$info.css({
+					"display" : "block"
+				})
+				$img1.addClass('a-fadeIn').css({
+					"-webkit-animation-delay" : "3000ms"
+				});
+				$img2.addClass('a-fadeIn').css({
+					"-webkit-animation-delay" : "4000ms"
+				});
+				$img3.addClass('a-fadeIn').css({
+					"-webkit-animation-delay" : "6000ms"
+				});
+			}, 300)
 		
 		/*动画全部完成*/
 		$img3.on("webkitAnimationEnd", function() {
