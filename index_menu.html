@@ -26,14 +26,12 @@
 				-webkit-transform-origin-x: 100%;
 				width: 100%;
 				height: 100%;
-				-webkit-perspective: 1000px;
-						perspective: 1000px;
+				-webkit-perspective: 600px;
+						perspective: 600px;
 				-webkit-transform-style: preserve-3d;
 						transform-style: preserve-3d;
     			-webkit-transition-duration: 800ms;
     					transition-duration: 800ms;
-    			-webkit-transition-delay: -200ms;
-    					transition-delay: -200ms;
     			-webkit-transform: rotateY(-110deg) translateZ(0);
     					transform: rotateY(-110deg) translateZ(0);
     			overflow: hidden;
@@ -119,8 +117,10 @@
 				height: 7rem;
 				transform: translate3d(0,100%,0);
 				-webkit-transform: translate3d(0,100%,0);
-			    transition: all 400ms;
-			    -webkit-transition: all 400ms;
+			    -webkit-transition-duration: 300ms;
+    					transition-duration: 300ms;
+    			-webkit-transition-timing-function: cubic-bezier(.26,1.11,.72,.94);
+						transition-timing-function: cubic-bezier(.26,1.11,.72,.94);
 			}
 			.wly_footerActive{
 				-webkit-transform: translate3d(0,0,0);
@@ -146,8 +146,8 @@
 				opacity: 0.5;
 			}
 			.wly_installActive{
-				transition: all 400ms;
-			    -webkit-transition: all 400ms;
+				transition: rotate 400ms;
+			    -webkit-transition: rotate 400ms;
 				transform: rotate(45deg);
 				-webkit-transform: rotate(45deg)
 			}
@@ -159,7 +159,7 @@
 			<div class="am-u-sm-12 wly_top_body">
 				<div class="am-u-sm-12 wly_top_title">
 					<div class="am-u-sm-2" style="padding: 0;">
-						<img class="wly_top_images" src="./images/people.png" alt="">
+						<img class="wly_top_images" src="./images/person/people.png" alt="">
 					</div>
 					<div class="am-u-sm-7 wly_top_info">
 						<p>i627107150</p>
@@ -280,27 +280,39 @@
 			$(this).removeClass('am-icon-envelope');
 			$(this).addClass('am-icon-envelope-o');
 		});
-		var status = true;
-		$(".wly_install").click(function(){
+		var bottom_status = true,
+			$toolBtn = $(".wly_install"),
+			$toolCon = $(".wly_footer");
+		$toolBtn.on("click", function(e){
 			if(status == "true"){
-				$(".wly_footer").addClass('wly_footerActive');
-				$(".wly_install").addClass('wly_installActive');
+				$toolCon.addClass('wly_footerActive');
+				$toolBtn.addClass('wly_installActive');
 				status = false;
 			}else{
-				$(".wly_footer").removeClass('wly_footerActive');
-				$(".wly_install").removeClass('wly_installActive');
+				$toolCon.removeClass('wly_footerActive');
+				$toolBtn.removeClass('wly_installActive');
 				status = true;
 			}
+			
 		});
 		var $container = $(".container");
+		/*
+		 * 侧滑动画
+		 */
 		window.addEventListener("openRotate", function() {
 			$container.addClass("rotateActive");
+		})
+		window.addEventListener("closeRotate", function(e) {
+			/*关闭下方导航*/
+			$toolCon.removeClass('wly_footerActive');
+			$toolBtn.removeClass('wly_installActive');
+			$container.removeClass("rotateActive");
 		})
 		/**
 		 * 关闭侧滑菜单
 		 */
 		function close() {
-			mui.fire(mui.currentWebview.opener(),"menu:close");
+			mui.fire(mui.currentWebview.opener(),"menu:close");  //调用主页的关闭
 			$container.removeClass("rotateActive");
 		}
 		//监听左滑事件，若菜单已展开，左滑要关闭菜单；
