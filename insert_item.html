@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>左导航</title>
+		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="./css/amazeui.css">
+		<link href="css/mui.min.css" rel="stylesheet"/>
+		<style type="text/css">
+		body{
+			position: static;
+		}
+		.mui-pull-right{
+			padding-top: 1.8rem !important;
+			font-size: 1.5rem !important;
+		}
+		.mui-title{
+			padding-top: 0.2rem;
+		}
+		.mui-bar a{
+			color: #000;
+		}
+		.mui-bar a span{
+			position: relative;
+			font-size: 1.5rem;
+			left: -1rem;
+			top: -0.1rem;
+		}
+		.container{
+			margin-top: 45px;
+		}
+		.wly_item_title{
+			height: 6rem;
+		}
+		.wly_item_title{
+			padding-top: 2rem;
+		}
+		.mui-input-group:before {
+		    height: 0px;
+		    background-color: #fff; 
+		}
+		.mui-input-row{
+			height: 6rem !important;
+		}
+		.mui-input-row .mui-btn {
+		    font-family: 'Helvetica Neue',Helvetica,sans-serif;
+		    line-height: 1.1;
+		    float: right;
+		    width: 100%;
+		    padding: 10px 15px;
+		}
+		#pickDateBtn p{
+			font-size: 1.8rem;
+			margin: 0;
+			color: #000;
+		}
+		#pickDateBtn p span{
+			margin: 0;
+			color: #C10802;
+		}
+		#wly_cot{
+			position: relative;
+			top:-3.2rem;
+			left: 32.5rem;//样式问题，初赛结束后调整
+		}
+		</style>
+	</head>
+	<body style="background-color: #fff;">
+		<header class="mui-bar mui-bar-nav tgy-header">
+			<div class="blur"></div>
+			<a class="mui-icon mui-icon-arrowleft mui-pull-left mui-action-back">
+				<span>取消</span>
+			</a>
+			<a class="mui-icon mui-pull-right">完成</a>
+			<h1 class="mui-title">新建任务</h1>
+		</header>
+		<div class="container">
+			<div class="am-g">
+				<div class="am-u-sm-12 wly_item_title">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<input type="text" class="mui-input-speech mui-input-clear" placeholder="请输入任务标题">
+						</div>
+					</form>
+					<form class="mui-input-group">
+						<div class="mui-input-row" style="margin-top:1rem;height: 5rem !important;">
+							<input type="text" class="mui-icon-info mui-input-clear" placeholder="选择任务类型">
+							<span class="mui-icon mui-icon-info" id="wly_cot"></span>
+						</div>
+					</form>
+					<div class="mui-input-row" style="margin: 10px 0px;height: 13rem !important;">
+						<textarea rows="5" placeholder="任务概述"></textarea>
+					</div>
+					<div class="mui-input-row">
+						<button id='pickDateBtn' type="button" class="mui-btn mui-btn-block">任务完成日期</button>
+					</div>
+				</div>
+			</div> 
+		
+		</div>
+	<script src="./js/zepto.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript">
+	//mui初始化
+	mui.init({
+		swipeBack: true //启用右滑关闭功能
+	});
+	var info = document.getElementById("pickDateBtn");
+	document.getElementById("pickDateBtn").addEventListener('tap', function() {
+		var dDate = new Date();
+		dDate.setFullYear(2014, 7, 16);
+		var minDate = new Date();
+		minDate.setFullYear(2010, 0, 1);
+		var maxDate = new Date();
+		maxDate.setFullYear(2016, 11, 31);
+		plus.nativeUI.pickDate(function(e) {
+			var d = e.date;
+			info.innerHTML = '<p>任务到达日期为:<span>'+d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()+'</span></p>';
+		}, function(e) {
+			info.innerText = "您没有选择日期";
+		}, {
+			title: "请选择日期",
+			date: dDate,
+			minDate: minDate,
+			maxDate: maxDate
+		});
+	});
+	</script>
+	</body>
+</html>
