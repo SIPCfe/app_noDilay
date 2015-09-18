@@ -25,7 +25,7 @@
 	<header class="mui-bar mui-bar-nav tgy-header">
 		<div class="blur"></div>
 		<a class="mui-icon mui-icon-bars mui-pull-left"></a>
-		<h1 class="mui-title">标题</h1>
+		<h1 class="mui-title">NoDelay</h1>
 	</header>
 	<script>
 		var menu = null,   //菜单webview
@@ -52,7 +52,10 @@
 			plus.screen.lockOrientation("portrait-primary");  //仅支持竖屏
 			var showGuide = plus.storage.getItem("lauchFlag");  //本地数据存储是否访问过
 			main = plus.webview.currentWebview();
-			main.addEventListener('maskClick', closeMenu);
+			main.addEventListener('maskClick', function() {
+				mui.fire(menu, "closeRotate");
+				closeMenu();
+			});
 			if(showGuide){
 				//有值，说明已经显示过了，无需显示；
 				//关闭splash页面；
@@ -141,7 +144,7 @@
 						mask: 'none',
 						left: '0',
 						transition: {
-							duration: 200
+							duration: 400
 						}
 					});
 					showMenu = false;
@@ -180,7 +183,7 @@
 				mui.fire(menu, "closeAnimate");
 			});
 			 //侧滑菜单触发关闭菜单命令
-			window.addEventListener("menu:close", closeMenu);
+			window.addEventListener("menu:close", closeMenu);     //注册主页关闭
 			window.addEventListener("menu:open", openMenu);
 	</script>
 </body>
